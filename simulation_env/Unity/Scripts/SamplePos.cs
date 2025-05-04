@@ -40,10 +40,10 @@ public class PoseLogger : MonoBehaviour
         {
             Vector3 pos = transform.position - start_pos;
             Quaternion rot = transform.rotation;
-	    Quaternion relative = Quaternion.Inverse(start_rot) * rot;
+	        Quaternion relative = Quaternion.Inverse(start_rot) * rot;
 
 
-            string log = $"{frameCount / 5} {relative.w:F3} {relative.x:F3} {relative.y:F3} {relative.z:F3} {pos.x:F3} {pos.y:F3} {pos.z:F3} 1\n";
+            string log = $"{frameCount / 5} {pos.x:F3} {pos.y:F3} {pos.z:F3} {relative.x:F3} {relative.y:F3} {relative.z:F3} {relative.w:F3} \n";
             writer.WriteLine(log);
             writer.Flush(); // optional, ensures it's written immediately
         }
