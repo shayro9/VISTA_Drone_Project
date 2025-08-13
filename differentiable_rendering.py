@@ -19,8 +19,11 @@ from matplotlib import pyplot as plt
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # Load the mesh
-obj_path = "simulation_env/Blender/abandoned city.obj"
+obj_path = "simulation_env/Blender/textures/abandoned city.obj"
 mesh = load_objs_as_meshes([obj_path], device=device)
+
+print(mesh.textures)
+quit()
 
 # Load JSON camera poses
 with open("simulation_env/Blender/camera_transform_data.json", "r") as f:
