@@ -126,7 +126,7 @@ for i in range(PATHS):
 	move_images_cmd = f"scp {image_dir}* {remote_path}"
 	subprocess.run(move_images_cmd, shell=True)
 	
-	remote_path = f"{SERVER_BASE}:c/gt_path_{i}.txt"
+	remote_path = f"{SERVER_BASE}:~/drone/DPVO/input_output/gt/gt_path_{i}.txt"
 	image_dir = f"/home/user2/Desktop/results/output_clean/gt_path_{i}.txt"
 	move_gt_cmd = f"scp {image_dir}* {remote_path}"
 	subprocess.run(move_gt_cmd, shell=True)
@@ -136,7 +136,7 @@ for i in range(PATHS):
 
 	subprocess.run([
 	     "ssh", SERVER_BASE,
-	     f"cd ~/drone/DPVO && srun -c 2 --gres=gpu:1 --pty ~/drone/DPVO/run_pgd sh path_{i}"
+	     f"cd ~/drone/DPVO && srun -c 2 --gres=gpu:1 --pty ~/drone/DPVO/run_pgd.sh path_{i}"
 	])
 
 	cmd = f"scp {remote_path} ./Desktop/results/"
@@ -180,7 +180,7 @@ for i in range(PATHS):
 	bpy.ops.render.render(animation=True)
 	
 	image_dir = f"/home/user2/Desktop/output_clean/path_{i}/frame_"
-	remote_path = f"{SERVER_BASE}:~/drone/DPVO/input_output/images/clean_frames_{path_i}"
+	remote_path = f"{SERVER_BASE}:~/drone/DPVO/input_output/images/clean_frames_path_{i}"
 	noise_path = f"./Desktop/results/all_noise_path_{i}.npy"
 	move_images_cmd = f"scp {image_dir}* {remote_path}"
 	apply_noise(image_dir, noise_path)
