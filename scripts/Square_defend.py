@@ -84,10 +84,9 @@ def update_texture(np_img):
 
 # ============== Setup ===================
 width, height = 256, 256  # Image size
-#base_image = np.ones((1, 3, height, width), dtype=np.uint8) * 255
 base_image = np.zeros((1,3,height, width))
 update_texture(base_image)
-# bpy.ops.render.render(animation=True)
+bpy.ops.render.render(animation=True)
 square_class = SquareAttackLinfIterative(x=base_image, p_init=0.35, maximize=False)
 
 logging.basicConfig(
@@ -108,11 +107,11 @@ subprocess.run(move_images_cmd, shell=True)
 # Run pgd and calc noise
 remote_path = f"{SERVER_BASE}:~/drone/DPVO/input_output/all_noise_S_Fly.npy"
 local_path = f"./Desktop/results/all_noise_S_Fly.npy"
-#
-#subprocess.run([
-#     "ssh", SERVER_BASE,
-#     "cd ~/drone/DPVO && srun -c 2 --gres=gpu:1 --pty ~/drone/DPVO/run_pgd.sh"
-#])
+
+subprocess.run([
+    "ssh", SERVER_BASE,
+    "cd ~/drone/DPVO && srun -c 2 --gres=gpu:1 --pty ~/drone/DPVO/run_pgd.sh"
+])
 
 cmd = f"scp {remote_path} ./Desktop/results/"
 subprocess.run(cmd, shell=True)
