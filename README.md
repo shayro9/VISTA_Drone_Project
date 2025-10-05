@@ -1,20 +1,20 @@
 # 🛰️ VISTA Project: Robust Visual Odometry
 
-**Authors:** [Shay Rozin](https://github.com/) & [Nitay Amiel](https://github.com/)  
+**Authors:** [Shay Rozin](https://github.com/shayro9) & [Nitay Amiel](https://github.com/NitayAmiel)  
 **Supervisor:** Tamir Shor  
 
 ---
 
 ## 📖 Overview
 
-The **VISTA Project** explores methods to improve the **robustness of visual odometry (VO)** for drones by introducing an **optimized projected spotlight**.  
-Our approach leverages **differentiable optimization** and **adversarial insights** to improve localization accuracy under varying lighting and noise conditions.
+This Project explores methods to improve the **robustness of visual odometry (VO)** for drones by introducing an **optimized projected spotlight** in the scene.  
+Our approach leverages **differentiable optimization** and **adversarial insights** to improve localization accuracy under adversarial noise conditions.
 
 ---
 
 ## 🎯 Motivation
 
-Visual odometry systems are sensitive to environmental changes such as illumination and texture.  
+We knew that CNN based Visual odometry systems are sensitive to adversarial attacks.  
 To address this, we propose **projecting a static, distinctive spotlight pattern** that remains visible to the drone and enhances localization consistency across frames.
 
 ---
@@ -22,18 +22,19 @@ To address this, we propose **projecting a static, distinctive spotlight pattern
 ## ⚙️ Methodology
 
 ### 🔄 Pipeline
-1. **Multiple Track Generation** – Simulate drone trajectories in Blender using ray tracing.  
-2. **Light Optimization** – Optimize a projected light texture visible to the drone.  
-3. **Evaluation** – Measure robustness improvements using the **DPVO** (Deep Patch Visual Odometry) model.
+1. **Multiple Track Generation** – Simulate drone trajectories in Blender using ray tracing.
+2. **Simulate Noise** - Applay an adversarial attack to each drone trajectory.
+3. **Light Optimization** – Optimize a projected light texture visible to the drone to reduce loss.  
+4. **Evaluation** – Measure robustness improvements using the **DPVO** (Deep Patch Visual Odometry) model.
 
 ---
 
 ## 🧠 Foundational Concepts
 
 ### 🧩 DPVO (Deep Patch Visual Odometry)
-- Tracks sparse patch correspondences across frames using an RNN.  
-- State-of-the-art method for visual odometry.  
-- Serves as the baseline for performance evaluation.
+- RNN based model for visual odometry
+- Tracks sparse patch correspondences across frames. 
+- State-of-the-art method.  
 
 ### ⚡ Noise Injection (PGD)
 - Uses **Projected Gradient Descent (PGD)** to optimize adversarial noise.  
