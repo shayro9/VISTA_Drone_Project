@@ -5,23 +5,23 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
 This Project explores methods to improve the **robustness of visual odometry (VO)** for drones by introducing an **optimized projected spotlight** in the scene.  
 Our approach leverages **differentiable optimization** and **adversarial insights** to improve localization accuracy under adversarial noise conditions.
 
 ---
 
-## 🎯 Motivation
+## Motivation
 
 We knew that CNN based Visual odometry systems are sensitive to adversarial attacks.  
 To address this, we propose **projecting a static, distinctive spotlight pattern** that remains visible to the drone and enhances localization consistency across frames.
 
 ---
 
-## ⚙️ Methodology
+## Methodology
 
-### 🔄 Pipeline
+### Pipeline
 1. **Multiple Track Generation** – Simulate drone trajectories in Blender using ray tracing.
 2. **Simulate Noise** - Applay an adversarial attack to each drone trajectory.
 3. **Light Optimization** – Optimize a projected light texture visible to the drone to reduce loss.  
@@ -29,38 +29,38 @@ To address this, we propose **projecting a static, distinctive spotlight pattern
 
 ---
 
-## 🧠 Foundational Concepts
+## Foundational Concepts
 
-### 🧩 DPVO (Deep Patch Visual Odometry)
+### DPVO (Deep Patch Visual Odometry)
 - RNN based model for visual odometry
 - Tracks sparse patch correspondences across frames. 
 - State-of-the-art method.  
 
-### ⚡ Noise Injection (PGD)
+### Noise Injection (PGD)
 - Uses **Projected Gradient Descent (PGD)** to optimize adversarial noise.  
 - Maximizes VO loss under bounded norm constraints.  
 - Frame-based, without physical restrictions — serves as an upper-bound baseline.
 
-### 🟥 Square Attack
+### Square Attack
 - **Black-box** adversarial method with no internal model access.  
 - Iteratively adds localized squares for maximum CNN impact.  
 - Provides insights for our **“Square Defense”** method.
 
 ---
 
-## 💡 Our Approach: Light Optimization
+## Our Approach: Light Optimization
 
 We introduce a **universal, physically grounded defense** mechanism based on light projection.
 
 **Key ideas:**
-- 🟦 **Static square-pattern spotlight** optimized using feedback from multiple trajectories.  
-- 🧮 **Universal texture** – effective across different tracks.  
-- 🧱 **Square Defense** – inspired by adversarial attack properties.  
-- ☀️ Optimization performed in Blender using ray tracing and DPVO feedback loss.
+- **Static square-pattern spotlight** optimized using feedback from multiple trajectories.  
+- **Universal texture** – effective across different tracks.  
+- **Square Defense** – inspired by adversarial attack properties.  
+- Optimization performed in Blender using ray tracing and DPVO feedback loss.
 
 ---
 
-## 🔬 Experimental Setup
+## Experimental Setup
 
 | Component | Description |
 |------------|-------------|
@@ -74,7 +74,7 @@ We introduce a **universal, physically grounded defense** mechanism based on lig
 
 ---
 
-## 📊 Results Summary
+## Results Summary
 
 | Condition | Description |
 |------------|-------------|
@@ -82,31 +82,7 @@ We introduce a **universal, physically grounded defense** mechanism based on lig
 | **PGD** | Degraded accuracy under adversarial noise |
 | **DEFEND** | Improved robustness using optimized spotlight |
 
-✅ The optimized spotlight enhances localization robustness  
-✅ The defense generalizes across tracks  
-✅ The method complements DPVO’s patch-based structure  
-
+The optimized spotlight enhances localization robustness  
+The defense generalizes across tracks  
+The method complements DPVO’s patch-based structure  
 ---
-
-## 🚀 Future Work
-
-- 🔧 **Advanced Noise Models:** Explore physically consistent universal textures.  
-- 🟥 **Square Attack Analysis:** Study the defense/attack relationship in depth.  
-- 🤖 **Multi-Sensor Fusion:** Integrate IMU/LiDAR for improved resilience.
-
----
-
-## 📁 Repository Structure
-
-VISTA-Project-Robust-Visual-Odometry/
-
-├── data
-
-├── src
-
-├── results
-
-├── presentation
-
-└── README.md
-
