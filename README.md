@@ -57,8 +57,9 @@ We introduce a **universal, physically grounded defense** mechanism based on lig
 - **Universal texture** – effective across different tracks.  
 - **Square Defense** – inspired by adversarial attack properties.  
 - Optimization performed in Blender using ray tracing and DPVO feedback loss.
-
+![movie0000-0150-ezgif com-crop](https://github.com/user-attachments/assets/8ba5252f-fca3-40c5-a9be-bd04701565a2)
 ---
+
 
 ## Experimental Setup
 
@@ -81,6 +82,8 @@ We introduce a **universal, physically grounded defense** mechanism based on lig
 | **CLEAN** | Standard DPVO performance |
 | **PGD** | Degraded accuracy under adversarial noise |
 | **DEFEND** | Improved robustness using optimized spotlight |
+ <img width="720" height="307" alt="Screenshot_669" src="https://github.com/user-attachments/assets/ef8606cb-2610-4acc-b531-1e61f6c8dc06" />
+
 
 The optimized spotlight enhances localization robustness  
 The defense generalizes across tracks  
