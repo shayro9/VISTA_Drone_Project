@@ -23,8 +23,9 @@ bl_info = {
 import bpy
 import random
 import mathutils
-from bpy.props import IntProperty, FloatProperty, StringProperty
-from bpy.props import PointerProperty
+from bpy.props import (IntProperty, FloatProperty, StringProperty,
+                       BoolProperty, EnumProperty, FloatVectorProperty,
+                       PointerProperty)
 from bpy.types import Operator, Panel, PropertyGroup
 from mathutils.bvhtree import BVHTree
 
@@ -63,6 +64,45 @@ class CurveGenProperties(PropertyGroup):
         name="Curve Name",
         description="Name of the generated curve object",
         default="RandomFlightPath",
+    )
+
+    # --- Camera ---
+    attach_camera: BoolProperty(
+        name="Attach Camera to Path",
+        description="Add a camera that moves along the generated curve",
+        default=False,
+    )
+    use_existing_camera: BoolProperty(
+        name="Use Scene Camera",
+        description="Move the existing scene camera; creates a new one if none exists",
+        default=True,
+    )
+    look_at_mode: EnumProperty(
+        name="Look At",
+        description="What the camera points at while travelling the path",
+        items=[
+            ('NONE',   "Path Direction", "Camera aligns itself to the curve tangent"),
+            ('CENTER', "Scene Center",   "Camera always looks at the centre of the scene"),
+            ('POINT',  "Fixed Point",    "Camera always looks at a specific world location"),
+            ('OBJECT', "Object",         "Camera tracks a chosen object"),
+        ],
+        default='CENTER',
+    )
+    look_at_point: FloatVectorProperty(
+        name="Look-At Point",
+        description="World-space location the camera will look at",
+        default=(0.0, 0.0, 0.0),
+        subtype='XYZ',
+    )
+    look_at_object: PointerProperty(
+        name="Look-At Object",
+        type=bpy.types.Object,
+        description="Object the camera will track",
+    )
+    animate_path: BoolProperty(
+        name="Animate Along Path",
+        description="Keyframe the camera travelling the full curve over the scene frame range",
+        default=True,
     )
 
 
@@ -352,8 +392,97 @@ def create_nurbs_curve(points, name):
 
 
 # ---------------------------------------------------------------------------
-# Operator
+# Camera setup
 # ---------------------------------------------------------------------------
+
+def attach_camera_to_curve(context, curve_obj, props, min_co, max_co):
+    """
+    Get or create a camera, attach it to curve_obj with a Follow Path
+    constraint, and optionally add a Track To constraint so it looks at
+    a target while travelling.
+    """
+    scene = context.scene
+    collection = context.collection or scene.collection
+
+    # ── Camera object ──────────────────────────────────────────────────────
+    if props.use_existing_camera and scene.camera:
+        cam_obj = scene.camera
+    else:
+        cam_data = bpy.data.cameras.new("FlightCamera")
+        cam_obj = bpy.data.objects.new("FlightCamera", cam_data)
+        collection.objects.link(cam_obj)
+        scene.camera = cam_obj
+
+    # Remove stale constraints from previous runs
+    for c in list(cam_obj.constraints):
+        if c.type in {'FOLLOW_PATH', 'TRACK_TO'}:
+            cam_obj.constraints.remove(c)
+
+    # ── Follow Path ────────────────────────────────────────────────────────
+    fp = cam_obj.constraints.new('FOLLOW_PATH')
+    fp.name = "FollowFlightPath"
+    fp.target = curve_obj
+    fp.use_fixed_location = True  # lets us drive position via offset_factor (0→1)
+    fp.offset_factor = 0.0
+
+    if props.look_at_mode == 'NONE':
+        fp.use_curve_follow = True
+        fp.forward_axis = 'TRACK_NEGATIVE_Z'
+        fp.up_axis = 'UP_Y'
+    else:
+        fp.use_curve_follow = False
+
+    # ── Track To ───────────────────────────────────────────────────────────
+    if props.look_at_mode != 'NONE':
+        if props.look_at_mode == 'OBJECT' and props.look_at_object:
+            target_obj = props.look_at_object
+        else:
+            target_name = f"{curve_obj.name}_LookAt"
+            target_obj = bpy.data.objects.get(target_name)
+            if target_obj is None:
+                target_obj = bpy.data.objects.new(target_name, None)
+                target_obj.empty_display_type = 'SPHERE'
+                target_obj.empty_display_size = 0.5
+                collection.objects.link(target_obj)
+
+            if props.look_at_mode == 'CENTER':
+                target_obj.location = (min_co + max_co) / 2
+            else:  # POINT
+                target_obj.location = mathutils.Vector(props.look_at_point)
+
+        tt = cam_obj.constraints.new('TRACK_TO')
+        tt.target = target_obj
+        tt.track_axis = 'TRACK_NEGATIVE_Z'
+        tt.up_axis    = 'UP_Y'
+
+    # ── Animation ──────────────────────────────────────────────────────────
+    if props.animate_path:
+        # Make the camera active — the operator requires it
+        prev_active = context.view_layer.objects.active
+        prev_selected = [o for o in context.selected_objects]
+        bpy.ops.object.select_all(action='DESELECT')
+        cam_obj.select_set(True)
+        context.view_layer.objects.active = cam_obj
+
+        # This is exactly what the "Animate Path" button calls internally.
+        # It sets use_path, path_duration, and wires up eval_time keyframes.
+        bpy.ops.constraint.followpath_path_animate(
+            constraint=fp.name,
+            owner='OBJECT'
+        )
+
+        # Restore previous selection
+        bpy.ops.object.select_all(action='DESELECT')
+        for o in prev_selected:
+            o.select_set(True)
+        context.view_layer.objects.active = prev_active
+    else:
+        fp.use_fixed_location = True
+        fp.offset_factor = 0.0
+
+    return cam_obj
+
+
 
 class CURVEGEN_OT_generate(Operator):
     bl_idname = "curvegen.generate"
@@ -408,6 +537,14 @@ class CURVEGEN_OT_generate(Operator):
                         f"resolved in {total_iters} iterations "
                         f"(polygon pass: {iters1}, curve pass: {iters2}).")
 
+        # ── Optional camera ───────────────────────────────────────────────
+        if props.attach_camera:
+            try:
+                cam = attach_camera_to_curve(context, curve_obj, props, min_co, max_co)
+                self.report({'INFO'}, f"Camera '{cam.name}' attached to '{curve_obj.name}'.")
+            except Exception as e:
+                self.report({'ERROR'}, f"Camera setup failed: {e}")
+
         return {'FINISHED'}
 
 
@@ -442,6 +579,24 @@ class CURVEGEN_PT_panel(Panel):
         col.prop(props, "max_collision_iters")
         layout.separator()
 
+        # ── Camera ────────────────────────────────────────────────────────
+        box = layout.box()
+        row = box.row()
+        row.prop(props, "attach_camera", icon='CAMERA_DATA')
+
+        if props.attach_camera:
+            col = box.column(align=True)
+            col.prop(props, "use_existing_camera")
+            col.prop(props, "animate_path")
+            col.separator()
+            col.prop(props, "look_at_mode")
+
+            if props.look_at_mode == 'POINT':
+                col.prop(props, "look_at_point", text="")
+            elif props.look_at_mode == 'OBJECT':
+                col.prop(props, "look_at_object", text="")
+
+        layout.separator()
         layout.operator("curvegen.generate", icon='CURVE_DATA')
 
 
