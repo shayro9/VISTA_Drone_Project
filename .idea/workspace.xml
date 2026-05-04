@@ -5,38 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07f7d360-c37e-4155-a244-e253ddd07254" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/VISTA_Drone_Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/VISTA_Drone_Project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_image.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/custom_demo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/custom_demo_mine.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Path_logs/Fly_10_pos_log.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Path_logs/Fly_11_clip_log.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/differentiable_rendering.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frame_0081.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fresh_city.blend" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fresh_city.blend1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_camera_transform_blender.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_camera_transform_blender_gt.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie0000-0150.mkv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi_path_square_defend.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation_env/Blender/glb_render.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation_env/Blender/light_renderer.slang" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation_env/Blender/renderd_slang_py_script.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation_env/Unity/Scenes/3DCityScene.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation_env/Unity/Scenes/3DCityScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation_env/Unity/Scenes/3DCityScene.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation_env/Unity/Scripts/CPC_CameraPath.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation_env/Unity/Scripts/Editor/CPC_CameraPathInspector.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation_env/Unity/Scripts/Editor/CPC_CameraPathInspector.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation_env/Unity/Scripts/SamplePos.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/squere_defend/Square_defend.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/squere_defend/Squere_class.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/squere_defend/fresh_city.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulation_env/Blender/fresh_city.blend" beforeDir="false" afterPath="$PROJECT_DIR$/simulation_env/Blender/fresh_city.blend" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulation_env/Blender/fresh_city.blend1" beforeDir="false" afterPath="$PROJECT_DIR$/simulation_env/Blender/fresh_city.blend1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/get_camera_transform_blender_gt.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/get_camera_transform_blender_gt.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/shayr/Documents/GitHub/VISTA_Drone_Project" value="2we80iHxm9LNwNpEivg6H0GRktb" />
+    </persistenceIdMap>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -60,22 +44,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.create_image.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/shayr/Documents/GitHub/MPAC",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.create_image.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/shayr/Documents/GitHub/MPAC&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\shayr\Documents\GitHub\VISTA_Drone_Project\simulation_env\Blender" />
@@ -84,7 +72,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-5a2391486177-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13763.11" />
+        <option value="bundled-python-sdk-2653e85de345-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.31033.139" />
       </set>
     </attachedChunks>
   </component>
@@ -110,5 +98,13 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/VISTA_Drone_Project$create_image.coverage" NAME="create_image Coverage Results" MODIFIED="1749050212897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
   </component>
 </project>

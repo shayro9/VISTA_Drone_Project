@@ -1,6 +1,6 @@
 import bpy
 
-def calc_gt(output_path)
+def calc_gt(output_path):
 	camera_name = "Camera"
 
 	camera = bpy.data.objects.get(camera_name)
