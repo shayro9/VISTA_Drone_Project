@@ -3,7 +3,7 @@ generate_data.py  —  Blender batch drone-path data generator.
 
 Usage:
     blender --background path/to/scene.blend --python src/generate_data.py -- \
-        --num_paths 5 --output_dir /path/to/output
+        --num_paths 5 --output_dir /path/to/output [--optix]
 
 Output layout:
     output_dir/
@@ -80,18 +80,33 @@ def generate_path(index: int, output_dir: str, config: CurveConfig, lookat_fn=ce
 # Entry point
 # ---------------------------------------------------------------------------
 
+def enable_optix():
+    prefs = bpy.context.preferences.addons['cycles'].preferences
+    prefs.compute_device_type = 'OPTIX'
+    prefs.get_devices()
+    for device in prefs.devices:
+        device.use = True
+    bpy.context.scene.render.engine = 'CYCLES'
+    bpy.context.scene.cycles.device = 'GPU'
+    print("[generate_data] OptiX GPU rendering enabled.")
+
+
 def parse_args():
     argv = sys.argv
     argv = argv[argv.index('--') + 1:] if '--' in argv else []
     parser = argparse.ArgumentParser(description="Blender batch drone-path data generator")
     parser.add_argument('--num_paths',  type=int, required=True, help="Number of paths to generate")
     parser.add_argument('--output_dir', type=str, required=True, help="Root output directory")
+    parser.add_argument('--optix', action='store_true', help="Enable OptiX GPU rendering (requires NVIDIA GPU + driver ≥ 520)")
     return parser.parse_args(argv)
 
 
 def main():
     args = parse_args()
     os.makedirs(args.output_dir, exist_ok=True)
+
+    if args.optix:
+        enable_optix()
 
     config = CurveConfig()
 
